@@ -10,7 +10,7 @@ const NavbarContainer = styled.nav`
 `
 const NavbarWrapper = styled.div`
   height: 6rem;
-  padding: 0 5rem;
+  padding: 0 7rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,6 +23,7 @@ const NavbarWrapper = styled.div`
 const LinkLogo = styled(Link)`
   font-size: ${({ theme }) => theme.fontSize.h2};
   cursor: pointer;
+  transition-duration: 250ms;
 
   :hover {
     color: ${({theme}) => theme.colors.lightBlue};
@@ -30,6 +31,7 @@ const LinkLogo = styled(Link)`
 `
 const LinkNav = styled(Link)`
   font-size: ${({ theme }) => theme.fontSize.h4};
+  transition-duration: 250ms;
   
 
   :hover {

@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Order from './components/Order';
 import Contact from './components/Contact';
 import NavBar from './components/NavBar';
+import OrderForm from './components/OrderForm';
 
 export default function App() {
   return (
@@ -16,9 +17,10 @@ export default function App() {
         <GlobalStyles />
         <NavBar />
         <Routes>
-          <Route path='/' exact element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='/order' element={<Order />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/orderform' element={<OrderForm />} />
         </Routes>
       </>
     </ThemeProvider>

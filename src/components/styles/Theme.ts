@@ -13,5 +13,6 @@ export const theme: object = {
     h2: "3rem",
     h3: "2rem",
     h4: "1.6rem",
+    p: "1.2rem",
   },
 };

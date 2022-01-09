@@ -81,7 +81,7 @@ html {
 body {
   font-family: 'Rubik', sans-serif;
   background: ${({ theme }) => theme.colors.body};
-  color: ${({ theme }) => theme.colors.fontColor};
+  color: ${({ theme }) => theme.colors.darkBlue};
   line-height: 1.5;
 }
 input {
@@ -89,7 +89,7 @@ input {
 }
 a {
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.fontColor};
+  color: ${({ theme }) => theme.colors.darkBlue};
 }
 `;
 

@@ -9,7 +9,7 @@ const NavbarContainer = styled.nav`
   }
 `
 const NavbarWrapper = styled.div`
-  height: 6rem;
+  height: 8rem;
   padding: 0 7rem;
   display: flex;
   justify-content: space-between;

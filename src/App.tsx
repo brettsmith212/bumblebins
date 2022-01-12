@@ -9,6 +9,9 @@ import Order from './components/Order';
 import Contact from './components/Contact';
 import NavBar from './components/NavBar';
 import OrderForm from './components/OrderForm';
+import OrderPayment from './components/OrderPayment'
+
+
 
 export default function App() {
   return (
@@ -21,6 +24,7 @@ export default function App() {
           <Route path='/order' element={<Order />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/orderform' element={<OrderForm />} />
+          <Route path='/orderpayment' element={<OrderPayment />} />
         </Routes>
       </>
     </ThemeProvider>

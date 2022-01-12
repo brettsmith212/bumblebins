@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { data } from "../data"
 
 const CardContainer = styled.div`
   border-radius: 10px;
@@ -56,16 +57,23 @@ const CardWrapper = styled.div`
 `
 
 const OrderCard: React.FC = () => {
+  // console.log(data.bins)
+  const bumbleBinsCards = data.bins.map(bin => {
+    console.log(bin)
+    return(
+      <CardWrapper>
+        <img src="src/components/assets/bumblebin.png"/>
+        <h3>{bin.binCount}</h3>
+        <p>Here are the benefits of Bumble Bins!</p>
+        <button>Order Now</button>
+      </CardWrapper>
+    )
+  });
 
   return (
     <Link to="/orderform">
       <CardContainer>
-        <CardWrapper>
-          <img src="src/components/assets/bumblebin.png"/>
-          <h3>20 Bins</h3>
-          <p>Here are the benefits of Bumble Bins!</p>
-          <button>Order Now</button>
-        </CardWrapper>
+        {bumbleBinsCards}
       </CardContainer>
     </Link>
   )

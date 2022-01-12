@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
-import { orderFormSchema } from './OrderFormSchema'
+import { orderFormSchema } from './OrderFormSchema';
+import { Link } from 'react-router-dom';
 
 const FormContainer = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ const FormContainer = styled.div`
   margin-bottom: 20rem;
 `
 const Form = styled.form`
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -19,9 +21,11 @@ const Form = styled.form`
   }
   input {
     margin-left: 1rem;
+    margin-right: 1rem;
     font-size: ${({theme}) => theme.fontSize.h4};
   }
   button {
+    width: 100%;
     padding: 1.4rem;
     cursor: pointer;
     border-radius: 10px;
@@ -30,11 +34,18 @@ const Form = styled.form`
     background-color: ${({theme}) => theme.colors.yellow};
     border: 1px solid ${({theme}) => theme.colors.yellow};
     transition-duration: 250ms;
+    text-align: center;
   }
   button:hover {
     background-color: ${({theme}) => theme.colors.darkBlue};
     color: ${({theme}) => theme.colors.white};
     border: 1px solid ${({theme}) => theme.colors.darkBlue};
+  }
+  button:disabled {
+    color: ${({theme}) => theme.colors.white};
+    background-color: gray;
+    border: none;
+    cursor: not-allowed;
   }
 `
 const Errors = styled.p`
@@ -47,7 +58,7 @@ const initialFormError: object = {
 
 const OrderForm: React.FC = () => {
   const [formErrors, setFormErrors] = useState(initialFormError);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -75,10 +86,18 @@ const OrderForm: React.FC = () => {
     })
   }
 
+  const handleSubmit = (e: any): void => {
+    e.preventDefault();
+  }
+
+  useEffect(() => {
+    orderFormSchema.isValid(values).then(valid => setDisabled(!valid));
+  }, [values]);
+
 
   return(
     <FormContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <div>
           <Errors>{formErrors.name}</Errors>
           <label>
@@ -173,14 +192,16 @@ const OrderForm: React.FC = () => {
           </label>
         </div>
         <label>
-          I live on the ground floor
           <input type="checkbox" />
+          I live on the ground floor
         </label>
         <label>
-          Drop them off at my doorstep
           <input type="checkbox" />
+          Drop them off at my doorstep
         </label>
-        <button>Payment</button>
+        <Link to="/orderpayment">
+          <button disabled={disabled}>Payment</button>
+        </Link>
       </Form>
     </FormContainer>
   )

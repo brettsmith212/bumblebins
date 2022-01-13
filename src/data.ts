@@ -15,10 +15,6 @@ export const data = {
       {
         orderSize: 'extraLarge',
         binCount: 60,
-      },
-      {
-        orderSize: 'extraextra',
-        binCount: 1200
       }
     ]
 }

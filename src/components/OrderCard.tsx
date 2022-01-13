@@ -3,9 +3,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { data } from "../data"
 
+const Cards = styled.div`
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+`
 const CardContainer = styled.div`
   border-radius: 10px;
-  width: 100%;
+  width: 25rem;
   padding: 1.5rem;
   cursor: pointer;
   box-shadow:
@@ -61,20 +67,22 @@ const OrderCard: React.FC = () => {
   const bumbleBinsCards = data.bins.map(bin => {
     console.log(bin)
     return(
-      <CardWrapper>
-        <img src="src/components/assets/bumblebin.png"/>
-        <h3>{bin.binCount}</h3>
-        <p>Here are the benefits of Bumble Bins!</p>
-        <button>Order Now</button>
-      </CardWrapper>
+      <CardContainer key={bin.binCount}>
+        <CardWrapper>
+          <img src="src/components/assets/bumblebin.png"/>
+          <h3>{bin.binCount} Bins</h3>
+          <p>Here are the benefits of Bumble Bins!</p>
+          <button>Order Now</button>
+        </CardWrapper>
+      </CardContainer>
     )
   });
 
   return (
     <Link to="/orderform">
-      <CardContainer>
+      <Cards>
         {bumbleBinsCards}
-      </CardContainer>
+      </Cards>
     </Link>
   )
 };

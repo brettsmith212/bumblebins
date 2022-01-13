@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 
 const AuthContext = React.createContext({
-  formErrors: {},
-  setFormErrors: {},
+  bins: 0,
+  setBins: () => {},
+  handleClick: () => {},
+  values: {},
+  setValues: () => {},
 });
 
-const initialFormError = {
-  name: ""
-}
-
 export const AuthContextProvider: React.FC = (props) => {
-  const [formErrors, setFormErrors] = useState(initialFormError);
+  const [bins, setBins] = useState(0);
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    dropOffDate: "",
+    dropOffAddress: "",
+    pickUpDate: "",
+    pickUpAddress: "",
+    totalBins: "",
+  });
+  const handleClick = (binCount: number): void => {
+    setBins(binCount)
+  }
 
   return (
     <AuthContext.Provider
     value={{
-      formErrors,
-      setFormErrors,
+      bins,
+      setBins,
+      handleClick,
+      values,
+      setValues
     }}>
     {props.children}
     </AuthContext.Provider>
@@ -24,3 +39,4 @@ export const AuthContextProvider: React.FC = (props) => {
 };
 
 export default AuthContext;
+

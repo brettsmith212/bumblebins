@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { data } from "../data"
+import AuthContext from "../auth-context"
 
 const Cards = styled.div`
   display: flex;
@@ -63,11 +64,11 @@ const CardWrapper = styled.div`
 `
 
 const OrderCard: React.FC = () => {
-  // console.log(data.bins)
+  const ctx = useContext(AuthContext)
+
   const bumbleBinsCards = data.bins.map(bin => {
-    console.log(bin)
     return(
-      <CardContainer key={bin.binCount}>
+      <CardContainer key={bin.binCount} onClick={() => ctx.handleClick(bin.binCount)}>
         <CardWrapper>
           <img src="src/components/assets/bumblebin.png"/>
           <h3>{bin.binCount} Bins</h3>

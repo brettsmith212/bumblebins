@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import * as yup from 'yup';
-import { orderFormSchema } from './OrderFormSchema';
 import { Link } from 'react-router-dom';
+import { data } from "../data";
+import AuthContext from '../auth-context';
+import useOrderForm from '../hooks/useOrderForm'
 
 const FormContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   margin-bottom: 20rem;
+
+  h2 {
+    font-size: ${({theme}) => theme.fontSize.h2};
+
+  }
 `
 const Form = styled.form`
   padding: 2rem;
@@ -23,6 +30,12 @@ const Form = styled.form`
     margin-left: 1rem;
     margin-right: 1rem;
     font-size: ${({theme}) => theme.fontSize.h4};
+  }
+  select{
+    margin-left: 1rem;
+    width: 5rem;
+    height: 3.5rem;
+
   }
   button {
     width: 100%;
@@ -52,51 +65,32 @@ const Errors = styled.p`
   color: red;
 `
 
-const initialFormError: object = {
-  name: "",
-}
+
 
 const OrderForm: React.FC = () => {
-  const [formErrors, setFormErrors] = useState(initialFormError);
-  const [disabled, setDisabled] = useState(true);
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    dropOffDate: "",
-    dropOffAddress: "",
-    pickUpDate: "",
-    pickUpAddress: "",
-    totalBins: "",
-  });
+  const ctx = useContext(AuthContext);
+  console.log("ORDER FORM BINS: ", ctx.bins)
+  console.log("CTX VALUES: ", ctx.values)
+  const [formErrors, disabled, handleChange] = useOrderForm();
 
-  const validateForm = (name: any, value: any): void => {
-    yup
-    .reach(orderFormSchema, name)
-    .validate(value)
-    .then(() => setFormErrors({...formErrors, [name]: ""}))
-    .catch((err: any) => setFormErrors({...formErrors, [name]: err.errors[0]}))
-  };
-
-  const handleChange = (e: any): void => {
-    validateForm(e.target.name, e.target.value);
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value
-    })
-  }
 
   const handleSubmit = (e: any): void => {
     e.preventDefault();
   }
 
-  useEffect(() => {
-    orderFormSchema.isValid(values).then(valid => setDisabled(!valid));
-  }, [values]);
 
-
+  const binCountDropdown = data.bins.map(bin => {
+    if (bin.binCount === ctx.bins){
+      return <option key={bin.binCount} selected value={bin.binCount}>{bin.binCount}</option>
+    } else{
+      return <option key={bin.binCount} value={bin.binCount}>{bin.binCount}</option>
+    }
+    
+  });
+  
   return(
     <FormContainer>
+      <h2>Order Form</h2>
       <Form onSubmit={handleSubmit}>
         <div>
           <Errors>{formErrors.name}</Errors>
@@ -105,7 +99,7 @@ const OrderForm: React.FC = () => {
             <input 
               type="text" 
               name="name"
-              value={values.name}
+              value={ctx.values.name}
               onChange={handleChange}
               placeholder="Homer Simpson" />
           </label>
@@ -117,7 +111,7 @@ const OrderForm: React.FC = () => {
             <input 
               type="email" 
               name="email"
-              value={values.email}
+              value={ctx.values.email}
               onChange={handleChange}
               placeholder="homer@simpson.com" />
           </label>
@@ -129,7 +123,7 @@ const OrderForm: React.FC = () => {
             <input 
             type="telephone" 
             name="phoneNumber"
-            value={values.phoneNumber}
+            value={ctx.values.phoneNumber}
             onChange={handleChange}
             placeholder="888-800-0008" />
           </label>
@@ -141,7 +135,7 @@ const OrderForm: React.FC = () => {
             <input 
             type="date"
             name="dropOffDate"
-            value={values.dropOffDate}
+            value={ctx.values.dropOffDate}
             onChange={handleChange} />
           </label>
         </div>
@@ -152,7 +146,7 @@ const OrderForm: React.FC = () => {
             <input 
               type="address" 
               name="dropOffAddress"
-              value={values.dropOffAddress}
+              value={ctx.values.dropOffAddress}
               onChange={handleChange}
               placeholder="123 Evergreen Terrace" />
           </label>
@@ -164,7 +158,7 @@ const OrderForm: React.FC = () => {
             <input 
             type="date" 
             name="pickUpDate"
-            value={values.pickUpDate}
+            value={ctx.values.pickUpDate}
             onChange={handleChange} />
           </label>
         </div>
@@ -175,7 +169,7 @@ const OrderForm: React.FC = () => {
             <input 
               type="address" 
               name="pickUpAddress"
-              value={values.pickUpAddress}
+              value={ctx.values.pickUpAddress}
               onChange={handleChange}
               placeholder="123 Evergreen Terrace" />
           </label>
@@ -183,12 +177,11 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.totalBins}</Errors>
           <label>
-            Number of Bins
-            <input 
-            type="number"
-            name="totalBins"
-            value={values.totalBins}
-            onChange={handleChange} />
+            Total Bins
+            <select name="totalBins" onChange={handleChange}>
+              <option value="" disabled>Select # of Bins</option>
+              {binCountDropdown}
+            </select>
           </label>
         </div>
         <label>

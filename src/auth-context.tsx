@@ -1,10 +1,38 @@
 import React, { useState } from 'react';
 
-const AuthContext = React.createContext({
+interface valueObj {
+  name: string,
+  email: string,
+  phoneNumber: string,
+  dropOffDate: string,
+  dropOffAddress: string,
+  pickUpDate: string,
+  pickUpAddress: string,
+  totalBins: string,
+}
+
+interface contextObj {
+  bins: number,
+  setBins: React.Dispatch<React.SetStateAction<number>>,
+  handleClick: (x:number) => void,
+  values: valueObj,
+  setValues: React.Dispatch<React.SetStateAction<valueObj>>,
+}
+
+const AuthContext = React.createContext<contextObj>({
   bins: 0,
   setBins: () => {},
   handleClick: () => {},
-  values: {},
+  values: {
+    name: "",
+    email: "",
+    phoneNumber: "",
+    dropOffDate: "",
+    dropOffAddress: "",
+    pickUpDate: "",
+    pickUpAddress: "",
+    totalBins: "",
+  },
   setValues: () => {},
 });
 

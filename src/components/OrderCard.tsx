@@ -21,9 +21,7 @@ const CardContainer = styled.div`
   16.4px 5.8px 30.8px rgba(0, 0, 0, 0.049),
   24.2px 8.5px 54.9px rgba(0, 0, 0, 0.052),
   37.5px 13.2px 102.8px rgba(0, 0, 0, 0.055),
-  77px 27px 246px rgba(0, 0, 0, 0.07)
-;
-;
+  77px 27px 246px rgba(0, 0, 0, 0.07);
 
   :hover {
     transform: scale(1.05);

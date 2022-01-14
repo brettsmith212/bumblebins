@@ -3,12 +3,30 @@ import AuthContext from '../auth-context';
 import { orderFormSchema } from '../components/OrderFormSchema';
 import * as yup from 'yup';
 
-const initialFormError: object = {
+
+interface formErrors {
+  name: string,
+  email: string,
+  phoneNumber: string,
+  dropOffDate: string,
+  dropOffAddress: string,
+  pickUpDate: string,
+  pickUpAddress: string,
+  totalBins: string,
+}
+const initialFormError: formErrors = {
   name: "",
+  email: "",
+  phoneNumber: "",
+  dropOffDate: "",
+  dropOffAddress: "",
+  pickUpDate: "",
+  pickUpAddress: "",
+  totalBins: "",
 }
 
 const useOrderForm = () => {
-  const [formErrors, setFormErrors] = useState(initialFormError);
+  const [formErrors, setFormErrors] = useState<formErrors>(initialFormError);
   const [disabled, setDisabled] = useState(true);
   const ctx = useContext(AuthContext);
 

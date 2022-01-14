@@ -69,8 +69,8 @@ const Errors = styled.p`
 
 const OrderForm: React.FC = () => {
   const ctx = useContext(AuthContext);
-  console.log("ORDER FORM BINS: ", ctx.bins)
-  console.log("CTX VALUES: ", ctx.values)
+  // console.log("ORDER FORM BINS: ", ctx.bins)
+  // console.log("CTX VALUES: ", ctx.values)
   const [formErrors, disabled, handleChange] = useOrderForm();
 
 
@@ -81,11 +81,10 @@ const OrderForm: React.FC = () => {
 
   const binCountDropdown = data.bins.map(bin => {
     if (bin.binCount === ctx.bins){
-      return <option key={bin.binCount} selected value={bin.binCount}>{bin.binCount}</option>
+      return <option key={bin.binCount} value={bin.binCount}>{bin.binCount}</option>
     } else{
       return <option key={bin.binCount} value={bin.binCount}>{bin.binCount}</option>
     }
-    
   });
   
   return(
@@ -95,7 +94,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.name}</Errors>
           <label>
-            Name
+            Name*
             <input 
               type="text" 
               name="name"
@@ -107,7 +106,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.email}</Errors>
           <label>
-            Email
+            Email*
             <input 
               type="email" 
               name="email"
@@ -119,7 +118,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.phoneNumber}</Errors>
           <label>
-            Phone Number
+            Phone Number*
             <input 
             type="telephone" 
             name="phoneNumber"
@@ -131,7 +130,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.dropOffDate}</Errors>
           <label>
-            Drop Off Bins On
+            Drop Off Bins On*
             <input 
             type="date"
             name="dropOffDate"
@@ -142,7 +141,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.dropOffAddress}</Errors>
           <label>
-            Drop Off Bins At
+            Drop Off Bins At*
             <input 
               type="address" 
               name="dropOffAddress"
@@ -154,7 +153,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.pickUpDate}</Errors>
           <label>
-            Pick Up Bins On
+            Pick Up Bins On*
             <input 
             type="date" 
             name="pickUpDate"
@@ -165,7 +164,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.pickUpAddress}</Errors>
           <label>
-            Pick Up Bins At
+            Pick Up Bins At*
             <input 
               type="address" 
               name="pickUpAddress"
@@ -177,7 +176,7 @@ const OrderForm: React.FC = () => {
         <div>
           <Errors>{formErrors.totalBins}</Errors>
           <label>
-            Total Bins
+            Total Bins*
             <select name="totalBins" onChange={handleChange}>
               <option value="" disabled>Select # of Bins</option>
               {binCountDropdown}
